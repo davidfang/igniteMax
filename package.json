@@ -22,7 +22,8 @@
     "git-hook": "npm run lint -s && npm run test -s",
     "lint": "standard --verbose | snazzy",
     "lintdiff": "git diff --name-only --cached --relative | grep '\\.js$' | xargs standard | snazzy",
-    "fixcode": "standard --fix"
+    "fixcode": "standard --fix",
+    "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
   },
   "dependencies": {
     "apisauce": "^0.14.0",
@@ -68,6 +69,8 @@
     "reactotron-react-native": "^1.11.1",
     "reactotron-redux": "^1.11.1",
     "reactotron-redux-saga": "^1.11.1",
+    "remote-redux-devtools": "^0.5.12",
+    "remote-redux-devtools-on-debugger": "^0.7.1",
     "snazzy": "^7.0.0",
     "standard": "10.0.2"
   },

@@ -1,8 +1,14 @@
 // a library to wrap and simplify api calls
 import apisauce from 'apisauce'
+import AppConfig from '../Config/AppConfig'
 
 // our "constructor"
-const create = (baseURL = 'https://api.github.com/') => {
+const create = () => {
+   const baseURL = AppConfig.baseURL
+  // const baseURL = {
+  //   github: 'https://api.github.com/',
+  //   xiaocong: 'http://xiaocong-yii.mirenbank.com/'
+  // }
   // ------
   // STEP 1
   // ------
@@ -10,11 +16,22 @@ const create = (baseURL = 'https://api.github.com/') => {
   // Create and configure an apisauce-based api object.
   //
   const api = apisauce.create({
-    // base URL is read from the "constructor"
-    baseURL,
+      // base URL is read from the "constructor"
+      baseURL: baseURL.github,
     // here are some default headers
-    headers: {
-      'Cache-Control': 'no-cache'
+    headers:  {
+      'Cache-Control':  'no-cache'
+    },
+    // 10 second timeout...
+    timeout: 10000
+  })
+
+  const apiXiaocong = apisauce.create({
+      // base URL is read from the "constructor"
+    baseURL: baseURL.xiaocong,
+    // here are some default headers
+    headers:  {
+      'Cache-Control':  'no-cache'
     },
     // 10 second timeout...
     timeout: 10000
@@ -37,7 +54,8 @@ const create = (baseURL = 'https://api.github.com/') => {
   const getRoot = () => api.get('')
   const getRate = () => api.get('rate_limit')
   const getUser = (username) => api.get('search/users', {q: username})
-
+  const login = (username, password) => api.get('search/users', {username, password})
+  const getCaptcha = () => apiXiaocong.get('site/captcha', {refresh: 'refresh'})
   // ------
   // STEP 3
   // ------
@@ -54,7 +72,9 @@ const create = (baseURL = 'https://api.github.com/') => {
     // a list of the API functions from step 2
     getRoot,
     getRate,
-    getUser
+    getUser,
+    login,
+    getCaptcha
   }
 }
 

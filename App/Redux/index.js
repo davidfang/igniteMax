@@ -7,6 +7,8 @@ export default () => {
   const rootReducer = combineReducers({
     nav: require('./NavigationRedux').reducer,
     github: require('./GithubRedux').reducer,
+    login: require('./LoginRedux').reducer,
+    captcha: require('./CaptchaRedux').reducer,
     search: require('./SearchRedux').reducer
   })
 

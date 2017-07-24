@@ -20,5 +20,24 @@ export default {
       ok: true,
       data: username.toLowerCase() === 'gantman' ? gantmanData : skellockData
     }
+  },
+  login: (username, password) => {
+    if (username == password) {
+      return {
+        ok: true,
+        data: {
+          username: 'aaaaa',
+          token: 'bbbbbb'
+        }
+      }
+    }
+
+  },
+  getCaptcha: () => {
+    return {
+      'hash1': 549,
+      'hash2': 549,
+      'url': '/site/captcha?v=59717da259243'
+    }
   }
 }

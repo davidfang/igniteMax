@@ -7,11 +7,15 @@ import DebugConfig from '../Config/DebugConfig'
 
 import { StartupTypes } from '../Redux/StartupRedux'
 import { GithubTypes } from '../Redux/GithubRedux'
+import { LoginTypes } from '../Redux/LoginRedux'
+import { CaptchaTypes } from '../Redux/CaptchaRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
+import { login } from './LoginSagas'
 import { getUserAvatar } from './GithubSagas'
+import { getCaptcha } from './CaptchaSagas'
 
 /* ------------- API ------------- */
 
@@ -27,6 +31,8 @@ export default function * root () {
     takeLatest(StartupTypes.STARTUP, startup),
 
     // some sagas receive extra parameters in addition to an action
+    takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
+    takeLatest(CaptchaTypes.CAPTCHA_REQUEST, getCaptcha, api),
     takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
   ]
 }

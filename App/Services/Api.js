@@ -15,7 +15,7 @@ const create = () => {
   //
   // Create and configure an apisauce-based api object.
   //
-  const api = apisauce.create({
+  const apiGithub = apisauce.create({
       // base URL is read from the "constructor"
       baseURL: baseURL.github,
     // here are some default headers
@@ -26,9 +26,9 @@ const create = () => {
     timeout: 10000
   })
 
-  const apiXiaocong = apisauce.create({
+  const api = apisauce.create({
       // base URL is read from the "constructor"
-    baseURL: baseURL.xiaocong,
+    baseURL: baseURL.api,
     // here are some default headers
     headers:  {
       'Cache-Control':  'no-cache'
@@ -51,11 +51,12 @@ const create = () => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
-  const getRoot = () => api.get('')
-  const getRate = () => api.get('rate_limit')
-  const getUser = (username) => api.get('search/users', {q: username})
-  const login = (username, password) => api.get('search/users', {username, password})
-  const getCaptcha = () => apiXiaocong.get('site/captcha', {refresh: 'refresh'})
+  const getRoot = () => apiGithub.get('')
+  const getRate = () => apiGithub.get('rate_limit')
+  const getUser = (username) => apiGithub.get('search/users', {q: username})
+  const login = (username, password) => apiGithub.get('search/users', {username, password})
+  const getCaptcha = () => api.get('site/captcha', {refresh: 'refresh'})
+  const checkCaptcha = (code) => api.get('site/check-captcha', { code })
   // ------
   // STEP 3
   // ------
@@ -74,7 +75,8 @@ const create = () => {
     getRate,
     getUser,
     login,
-    getCaptcha
+    getCaptcha,
+    checkCaptcha
   }
 }
 

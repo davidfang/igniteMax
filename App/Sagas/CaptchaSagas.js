@@ -25,10 +25,32 @@ export function * getCaptcha (api, action) {
        // located in ../Transforms/. Otherwise, just pass the data back from the api.
        const {hash1, hash2, url} = response.data
        yield put(CaptchaActions.captchaSuccess(hash1, hash2, url))
-     }else{
+     } else {
        yield put(CaptchaActions.captchaFailure('WRONG'))
      }
   } catch (error) {
     yield put(CaptchaActions.captchaFailure(error))
+  }
+}
+
+export function * checkCaptcha (api, action) {
+  const { code } = action
+
+  const respone = yield call(api.checkCaptcha, code)
+
+
+  try {
+    if (respone.ok) {
+      const {status,msg} = respone.data
+      if (status) {
+        yield put(CaptchaActions.captchaCheckSuccess(status,msg))
+      } else {
+        yield put(CaptchaActions.captchaCheckFailure(msg))
+      }
+    } else { //
+      yield put(CaptchaActions.captchaCheckFailure('CHECK-WANG'))
+    }
+  } catch (error) {
+    yield put(CaptchaActions.captchaCheckFailure(error))
   }
 }

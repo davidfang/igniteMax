@@ -35,9 +35,26 @@ export default {
   },
   getCaptcha: () => {
     return {
-      'hash1': 549,
-      'hash2': 549,
-      'url': '/site/captcha?v=59717da259243'
+      hash1: 549,
+      hash2: 549,
+      url: '/site/captcha?v=59717da259243'
+    }
+  },
+  checkCaptcha: (code) => {
+    if (code == 'abcd' ) {
+      return {
+        status: true,
+        data: {
+          msg: '验证成功'
+        }
+      }
+    } else {
+      return {
+        status: true,
+        data: {
+          msg: '验证成功'
+        }
+      }
     }
   }
 }

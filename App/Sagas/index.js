@@ -15,7 +15,7 @@ import { CaptchaTypes } from '../Redux/CaptchaRedux'
 import { startup } from './StartupSagas'
 import { login } from './LoginSagas'
 import { getUserAvatar } from './GithubSagas'
-import { getCaptcha } from './CaptchaSagas'
+import { getCaptcha , checkCaptcha} from './CaptchaSagas'
 
 /* ------------- API ------------- */
 
@@ -33,6 +33,7 @@ export default function * root () {
     // some sagas receive extra parameters in addition to an action
     takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
     takeLatest(CaptchaTypes.CAPTCHA_REQUEST, getCaptcha, api),
+    takeLatest(CaptchaTypes.CAPTCHA_CHECK, checkCaptcha, api),
     takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
   ]
 }

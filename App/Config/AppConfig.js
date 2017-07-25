@@ -7,6 +7,6 @@ export default {
   allowTextFontScaling: true,
   baseURL: {
     github: 'https://api.github.com/',
-    xiaocong: 'http://xiaocong-yii.mirenbank.com/'
+    api: 'http://xiaocong-yii.mirenbank.com/'
   }
 }
